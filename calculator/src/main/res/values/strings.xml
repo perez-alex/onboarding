@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Calculator</string>
+    <string name="equals">=</string>
+    <string name="value_1">Valor 1</string>
+    <string name="value_2">Valor 2</string>
+    <string name="operation">Operación</string>
+    <string name="result">Resultado</string>
+</resources>
