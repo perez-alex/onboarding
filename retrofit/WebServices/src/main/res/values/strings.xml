@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">RetrofitTest</string>
+    <string name="response_error">Error al obtener la respusta del WS</string>
+</resources>
