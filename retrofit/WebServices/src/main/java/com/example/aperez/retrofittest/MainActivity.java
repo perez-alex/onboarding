@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
+import com.example.aperez.retrofittest.mvp.model.ResponseModel;
 import com.example.aperez.retrofittest.mvp.presenter.ResponsePresenter;
 import com.example.aperez.retrofittest.mvp.view.ResponseView;
 import com.example.aperez.retrofittest.utils.BusProvider;
@@ -24,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ResponseView view = new ResponseView(this, BusProvider.getInstance());
         ButterKnife.bind(view, this);
-        presenter = new ResponsePresenter(view);
+        presenter = new ResponsePresenter(new ResponseModel(), view);
         presenter.getLatestImages();
     }
 

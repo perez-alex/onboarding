@@ -3,13 +3,10 @@ package com.example.aperez.retrofittest.mvp.presenter;
 import android.widget.Toast;
 
 import com.example.aperez.retrofittest.R;
-import com.example.aperez.retrofittest.mvp.model.Image;
 import com.example.aperez.retrofittest.mvp.model.LatestResponse;
+import com.example.aperez.retrofittest.mvp.model.ResponseModel;
 import com.example.aperez.retrofittest.mvp.view.ResponseView;
 import com.example.aperez.retrofittest.mvp.view.Splashbase;
-import com.squareup.otto.Subscribe;
-
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -24,20 +21,15 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ResponsePresenter {
 
     private ResponseView view;
+    private ResponseModel model;
 
-    public ResponsePresenter(ResponseView view){
+    public ResponsePresenter(ResponseModel model, ResponseView view){
+        this.model = model;
         this.view = view;
     }
 
     public void getLatestImages(){
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://www.splashbase.co/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        Splashbase service = retrofit.create(Splashbase.class);
-        Call<LatestResponse> call = service.getLatest();
-        call.enqueue(new Callback<LatestResponse>() {
+        model.getLatestImages(new Callback<LatestResponse>() {
             @Override
             public void onResponse(Call<LatestResponse> call, Response<LatestResponse> response) {
                 view.setText(response.body());
