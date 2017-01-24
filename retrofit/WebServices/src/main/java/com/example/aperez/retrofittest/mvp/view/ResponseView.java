@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
 
 import com.example.aperez.retrofittest.R;
-import com.example.aperez.retrofittest.mvp.model.LatestResponse;
+import com.example.aperez.retrofittest.mvp.model.Image;
 import com.squareup.otto.Bus;
+
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -25,8 +27,8 @@ public class ResponseView extends ActivityView {
         this.bus = bus;
     }
 
-    public void setCards(LatestResponse images) {
-        ImagesAdapter adapter = new ImagesAdapter(getActivity(), images.getImages());
+    public void setCards(List<Image> images) {
+        ImagesAdapter adapter = new ImagesAdapter(getActivity(), images);
         recyclerView.setAdapter(adapter);
     }
 }
