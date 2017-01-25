@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ResponseView view = new ResponseView(this, BusProvider.getInstance());
         ButterKnife.bind(view, this);
-        presenter = new ResponsePresenter(new ResponseModel(), view);
+        presenter = new ResponsePresenter(new ResponseModel(BusProvider.getInstance()), view);
         presenter.getLatestImages();
     }
 
