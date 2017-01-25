@@ -8,6 +8,7 @@ import com.example.aperez.retrofittest.mvp.model.ImageDialogModel;
 import com.example.aperez.retrofittest.mvp.model.event.ImageDetailsSuccessEvent;
 import com.example.aperez.retrofittest.mvp.view.ImageDialogView;
 import com.example.aperez.retrofittest.mvp.view.ImageFragment;
+import com.example.aperez.retrofittest.utils.BusProvider;
 import com.squareup.otto.Subscribe;
 
 /**
@@ -34,5 +35,7 @@ public class ImageDialogPresenter {
         FragmentManager fragmentManager = ((AppCompatActivity)view.getActivity()).getSupportFragmentManager();
         ImageFragment imageFragment = ImageFragment.newInstance(image.getLargeUrl(),image.getCopyright(),image.getSite());
         imageFragment.show(fragmentManager, "image_fragment");
+
+        BusProvider.unregister(this);
     }
 }
