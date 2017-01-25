@@ -1,11 +1,11 @@
 package com.example.aperez.retrofittest.mvp.presenter;
 
-import android.widget.Toast;
-
-import com.example.aperez.retrofittest.R;
 import com.example.aperez.retrofittest.mvp.model.ResponseModel;
+import com.example.aperez.retrofittest.mvp.model.event.LatestFailureEvent;
 import com.example.aperez.retrofittest.mvp.model.event.LatestSuccessEvent;
+import com.example.aperez.retrofittest.mvp.view.ImageFragment;
 import com.example.aperez.retrofittest.mvp.view.ResponseView;
+import com.example.aperez.retrofittest.mvp.view.event.ImageClickedEvent;
 import com.squareup.otto.Subscribe;
 
 /**
@@ -20,6 +20,12 @@ public class ResponsePresenter {
     public ResponsePresenter(ResponseModel model, ResponseView view) {
         this.model = model;
         this.view = view;
+
+        init();
+    }
+
+    private void init() {
+        getLatestImages();
     }
 
     public void getLatestImages() {
@@ -32,9 +38,14 @@ public class ResponsePresenter {
     }
 
     @Subscribe
-    public void latesImagesEventFailure(LatestSuccessEvent event) {
-        Toast.makeText(view.getActivity(), R.string.response_error, Toast.LENGTH_LONG);
+    public void latesImagesEventFailure(LatestFailureEvent event) {
+        view.showErrorToast();
+    }
 
+    @Subscribe
+    public void imageClickedEvent(ImageClickedEvent event) {
+        ImageFragment imageFragment = ImageFragment.newInstance(event.getId());
+        imageFragment.show(view.getFragmentManager(), "image_fragment");
     }
 
 }

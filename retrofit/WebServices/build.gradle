@@ -12,12 +12,24 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
+    productFlavors {
+        dev {
+            buildConfigField 'String', 'SPLASHBASE_URL', '"http://www.splashbase.co/"'
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+}
+
+repositories {
+    mavenCentral()
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
 }
 
 dependencies {
@@ -40,4 +52,5 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.android.support:cardview-v7:25.1.0'
     compile 'com.android.support:recyclerview-v7:25.1.0'
+    compile 'com.michaelpardo:activeandroid:3.1.0-SNAPSHOT'
 }
