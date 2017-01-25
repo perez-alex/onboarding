@@ -6,13 +6,12 @@ import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.example.aperez.retrofittest.R;
-import com.squareup.picasso.Picasso;
+import com.example.aperez.retrofittest.mvp.model.ImageDialogModel;
+import com.example.aperez.retrofittest.mvp.presenter.ImageDialogPresenter;
+import com.example.aperez.retrofittest.utils.BusProvider;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -21,49 +20,51 @@ import butterknife.ButterKnife;
 
 public class ImageFragment extends DialogFragment {
 
-    private final static String URL = "url";
-    private final static String COPYRIGHT = "copyright";
-    private final static String SITE = "site";
+    private final static String ID = "id";
 
-    @BindView(R.id.image)
-    ImageView image;
-    @BindView(R.id.copyright)
-    TextView copyright;
-    @BindView(R.id.site)
-    TextView site;
+    private ImageDialogPresenter presenter;
+    private ImageDialogView view;
 
     public ImageFragment() {
-
     }
 
-    public static ImageFragment newInstance(String url, String copyright, String site) {
+    public static ImageFragment newInstance(String id) {
 
         Bundle args = new Bundle();
-        args.putString(URL, url);
-        args.putString(COPYRIGHT, copyright);
-        args.putString(SITE, site);
+        args.putString(ID, id);
         ImageFragment fragment = new ImageFragment();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        view = new ImageDialogView(this);
+        presenter = new ImageDialogPresenter(new ImageDialogModel(BusProvider.getInstance()), view);
+        presenter.getImagesDetail(getArguments().getString(ID));
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.image_dialog, container, false);
-        ButterKnife.bind(this, view);
+        ButterKnife.bind(this.view, view);
         return view;
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        Picasso.with(getActivity())
-                .load(getArguments().getString(URL))
-                .into(image);
-        String siteString = getArguments().getString(SITE);
-        site.setText(String.format(getString(R.string.site), siteString));
-        String copyrightString = getArguments().getString(COPYRIGHT);
-        copyright.setText(String.format(getString(R.string.copyright), copyrightString));
+    public void onResume() {
+        super.onResume();
+
+        BusProvider.register(presenter);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        BusProvider.unregister(presenter);
     }
 }

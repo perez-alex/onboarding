@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ResponseView view = new ResponseView(this, BusProvider.getInstance());
+        ResponseView view = new ResponseView(this);
         ButterKnife.bind(view, this);
         presenter = new ResponsePresenter(new ResponseModel(BusProvider.getInstance()), view);
         presenter.getLatestImages();

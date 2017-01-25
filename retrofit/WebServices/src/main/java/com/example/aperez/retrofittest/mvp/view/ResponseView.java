@@ -2,6 +2,7 @@ package com.example.aperez.retrofittest.mvp.view;
 
 import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
 
 import com.example.aperez.retrofittest.R;
 import com.example.aperez.retrofittest.mvp.model.Image;
@@ -17,18 +18,19 @@ import butterknife.BindView;
 
 public class ResponseView extends ActivityView {
 
-
-    private final Bus bus;
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
 
-    public ResponseView(Activity activity, Bus bus) {
+    public ResponseView(Activity activity) {
         super(activity);
-        this.bus = bus;
     }
 
     public void setCards(List<Image> images) {
-        ImagesAdapter adapter = new ImagesAdapter(bus, getActivity(), images);
+        ImagesAdapter adapter = new ImagesAdapter(getActivity(), images);
         recyclerView.setAdapter(adapter);
+    }
+
+    public void showErrorToast() {
+        Toast.makeText(getActivity(), R.string.response_error, Toast.LENGTH_LONG).show();
     }
 }

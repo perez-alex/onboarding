@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.example.aperez.retrofittest.R;
 import com.example.aperez.retrofittest.mvp.model.Image;
 import com.example.aperez.retrofittest.mvp.view.event.ImageClickedEvent;
+import com.example.aperez.retrofittest.utils.BusProvider;
 import com.squareup.otto.Bus;
 import com.squareup.picasso.Picasso;
 
@@ -32,10 +33,10 @@ public class ImagesAdapter extends RecyclerView.Adapter<ImagesAdapter.ImageViewH
     private final Context context;
     private final Bus bus;
 
-    public ImagesAdapter(Bus bus, Context context, List<Image> images) {
+    public ImagesAdapter(Context context, List<Image> images) {
         imagesList = images;
         this.context = context;
-        this.bus = bus;
+        this.bus = BusProvider.getInstance();
     }
 
     @Override
@@ -53,8 +54,6 @@ public class ImagesAdapter extends RecyclerView.Adapter<ImagesAdapter.ImageViewH
         holder.id.setText(String.valueOf(image.getId()));
         Picasso.with(context)
                 .load(image.getUrl())
-//                .placeholder(R.drawable.placeholder)
-//                .error(R.drawable.error)
                 .into(holder.thumbnail);
     }
 
