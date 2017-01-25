@@ -23,7 +23,6 @@ public class ImageFragment extends DialogFragment {
     private final static String ID = "id";
 
     private ImageDialogPresenter presenter;
-    private ImageDialogView view;
 
     public ImageFragment() {
     }
@@ -41,16 +40,15 @@ public class ImageFragment extends DialogFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        view = new ImageDialogView(this);
-        presenter = new ImageDialogPresenter(new ImageDialogModel(BusProvider.getInstance()), view);
-        presenter.getImagesDetail(getArguments().getString(ID));
+        String id = getArguments().getString(ID);
+        presenter = new ImageDialogPresenter(new ImageDialogModel(BusProvider.getInstance(), id), new ImageDialogView(this));
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.image_dialog, container, false);
-        ButterKnife.bind(this.view, view);
+        presenter.bindView(view);
         return view;
     }
 

@@ -2,6 +2,7 @@ package com.example.aperez.retrofittest.mvp.model;
 
 import android.widget.Toast;
 
+import com.example.aperez.retrofittest.BuildConfig;
 import com.example.aperez.retrofittest.R;
 import com.example.aperez.retrofittest.mvp.model.event.LatestFailureEvent;
 import com.example.aperez.retrofittest.mvp.model.event.LatestSuccessEvent;
@@ -28,7 +29,7 @@ public class ResponseModel {
 
     public void getLatestImages(){
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://www.splashbase.co/")
+                .baseUrl(BuildConfig.SPLASHBASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

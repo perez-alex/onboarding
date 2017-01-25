@@ -1,10 +1,5 @@
 package com.example.aperez.retrofittest.mvp.presenter;
 
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
-import android.widget.Toast;
-
-import com.example.aperez.retrofittest.R;
 import com.example.aperez.retrofittest.mvp.model.ResponseModel;
 import com.example.aperez.retrofittest.mvp.model.event.LatestFailureEvent;
 import com.example.aperez.retrofittest.mvp.model.event.LatestSuccessEvent;
@@ -25,6 +20,12 @@ public class ResponsePresenter {
     public ResponsePresenter(ResponseModel model, ResponseView view) {
         this.model = model;
         this.view = view;
+
+        init();
+    }
+
+    private void init() {
+        getLatestImages();
     }
 
     public void getLatestImages() {
@@ -43,9 +44,8 @@ public class ResponsePresenter {
 
     @Subscribe
     public void imageClickedEvent(ImageClickedEvent event) {
-        FragmentManager fragmentManager = ((AppCompatActivity) view.getActivity()).getSupportFragmentManager();
         ImageFragment imageFragment = ImageFragment.newInstance(event.getId());
-        imageFragment.show(fragmentManager, "image_fragment");
+        imageFragment.show(view.getFragmentManager(), "image_fragment");
     }
 
 }

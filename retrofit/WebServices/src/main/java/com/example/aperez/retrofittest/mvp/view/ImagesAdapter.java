@@ -31,12 +31,10 @@ public class ImagesAdapter extends RecyclerView.Adapter<ImagesAdapter.ImageViewH
 
     private final List<Image> imagesList;
     private final Context context;
-    private final Bus bus;
 
     public ImagesAdapter(Context context, List<Image> images) {
         imagesList = images;
         this.context = context;
-        this.bus = BusProvider.getInstance();
     }
 
     @Override
@@ -62,7 +60,7 @@ public class ImagesAdapter extends RecyclerView.Adapter<ImagesAdapter.ImageViewH
         return imagesList.size();
     }
 
-    class ImageViewHolder extends RecyclerView.ViewHolder {
+    static class ImageViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.id)
         TextView id;
         @BindView(R.id.thumbnail)
@@ -76,6 +74,7 @@ public class ImagesAdapter extends RecyclerView.Adapter<ImagesAdapter.ImageViewH
 
         @OnClick(R.id.thumbnail)
         public void openDetail() {
+            Bus bus = BusProvider.getInstance();
             bus.post(new ImageClickedEvent(String.valueOf(image.getId())));
         }
     }

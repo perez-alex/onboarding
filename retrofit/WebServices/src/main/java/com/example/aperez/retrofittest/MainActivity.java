@@ -9,8 +9,6 @@ import com.example.aperez.retrofittest.mvp.presenter.ResponsePresenter;
 import com.example.aperez.retrofittest.mvp.view.ResponseView;
 import com.example.aperez.retrofittest.utils.BusProvider;
 
-import butterknife.ButterKnife;
-
 /**
  * Created by aperez on 24/01/17.
  */
@@ -24,9 +22,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ResponseView view = new ResponseView(this);
-        ButterKnife.bind(view, this);
         presenter = new ResponsePresenter(new ResponseModel(BusProvider.getInstance()), view);
-        presenter.getLatestImages();
     }
 
     @Override

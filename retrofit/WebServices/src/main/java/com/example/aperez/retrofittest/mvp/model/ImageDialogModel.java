@@ -1,5 +1,6 @@
 package com.example.aperez.retrofittest.mvp.model;
 
+import com.example.aperez.retrofittest.BuildConfig;
 import com.example.aperez.retrofittest.mvp.model.event.ImageDetailsFailureEvent;
 import com.example.aperez.retrofittest.mvp.model.event.ImageDetailsSuccessEvent;
 import com.example.aperez.retrofittest.mvp.view.Splashbase;
@@ -18,14 +19,16 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ImageDialogModel {
 
     private final Bus bus;
+    private String id;
 
-    public ImageDialogModel(Bus bus) {
+    public ImageDialogModel(Bus bus, String id) {
         this.bus = bus;
+        this.id = id;
     }
 
     public void getImageDetails(String id) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://www.splashbase.co/")
+                .baseUrl(BuildConfig.SPLASHBASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -42,5 +45,9 @@ public class ImageDialogModel {
                 bus.post(new ImageDetailsFailureEvent());
             }
         });
+    }
+
+    public String getId() {
+        return id;
     }
 }

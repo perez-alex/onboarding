@@ -1,10 +1,14 @@
 package com.example.aperez.retrofittest.mvp.presenter;
 
+import android.view.View;
+
 import com.example.aperez.retrofittest.mvp.model.Image;
 import com.example.aperez.retrofittest.mvp.model.ImageDialogModel;
 import com.example.aperez.retrofittest.mvp.model.event.ImageDetailsSuccessEvent;
 import com.example.aperez.retrofittest.mvp.view.ImageDialogView;
 import com.squareup.otto.Subscribe;
+
+import butterknife.ButterKnife;
 
 /**
  * Created by aperez on 25/01/17.
@@ -18,6 +22,12 @@ public class ImageDialogPresenter {
     public ImageDialogPresenter(ImageDialogModel model, ImageDialogView view) {
         this.model = model;
         this.view = view;
+
+        init();
+    }
+
+    private void init() {
+        getImagesDetail(model.getId());
     }
 
     public void getImagesDetail(String id) {
@@ -28,5 +38,9 @@ public class ImageDialogPresenter {
     public void imageDetailsSuccessEvent(ImageDetailsSuccessEvent event) {
         Image image = event.getImage();
         view.setImageDetails(image.getLargeUrl(), image.getSite(), image.getCopyright());
+    }
+
+    public void bindView(View view) {
+        ButterKnife.bind(this.view, view);
     }
 }
