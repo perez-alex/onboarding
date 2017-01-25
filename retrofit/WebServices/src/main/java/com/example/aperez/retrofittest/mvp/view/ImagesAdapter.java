@@ -42,8 +42,8 @@ public class ImagesAdapter extends RecyclerView.Adapter<ImagesAdapter.ImageViewH
         holder.id.setText(String.valueOf(image.getId()));
         Picasso.with(context)
                 .load(image.getUrl())
-                .placeholder(R.drawable.placeholder)
-                .error(R.drawable.error)
+//                .placeholder(R.drawable.placeholder)
+//                .error(R.drawable.error)
                 .into(holder.thumbnail);
     }
 
