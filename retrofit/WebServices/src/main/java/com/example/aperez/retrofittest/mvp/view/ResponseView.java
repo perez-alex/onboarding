@@ -1,6 +1,5 @@
 package com.example.aperez.retrofittest.mvp.view;
 
-import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;

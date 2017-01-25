@@ -37,18 +37,17 @@ public class ImageFragment extends DialogFragment {
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
         String id = getArguments().getString(ID);
-        presenter = new ImageDialogPresenter(new ImageDialogModel(BusProvider.getInstance(), id), new ImageDialogView(this));
+        presenter = new ImageDialogPresenter(new ImageDialogModel(BusProvider.getInstance(), id), new ImageDialogView(this, getView()));
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.image_dialog, container, false);
-        presenter.bindView(view);
         return view;
     }
 
