@@ -14,6 +14,8 @@ public class Image {
     String largeUrl;
     @SerializedName("source_id")
     String sourceId;
+    String copyright;
+    String site;
 
     public Long getId() {
         return id;
@@ -25,5 +27,13 @@ public class Image {
 
     public String getLargeUrl() {
         return largeUrl;
+    }
+
+    public String getCopyright(){
+        return copyright;
+    }
+
+    public String getSite(){
+        return site;
     }
 }

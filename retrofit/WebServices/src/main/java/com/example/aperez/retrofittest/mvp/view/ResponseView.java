@@ -28,7 +28,7 @@ public class ResponseView extends ActivityView {
     }
 
     public void setCards(List<Image> images) {
-        ImagesAdapter adapter = new ImagesAdapter(getActivity(), images);
+        ImagesAdapter adapter = new ImagesAdapter(bus, getActivity(), images);
         recyclerView.setAdapter(adapter);
     }
 }
