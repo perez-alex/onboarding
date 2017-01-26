@@ -3,10 +3,7 @@ package com.example.aperez.retrofittest.mvp.model.db;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
-import com.activeandroid.query.Select;
 import com.example.aperez.retrofittest.mvp.model.Image;
-
-import java.util.List;
 
 /**
  * Created by aperez on 26/01/17.
@@ -43,11 +40,5 @@ public class StoredImage extends Model {
 
     public String getUrl() {
         return url;
-    }
-
-    public static List<StoredImage> getAll() {
-        return new Select()
-                .from(StoredImage.class)
-                .execute();
     }
 }
