@@ -1,33 +1,26 @@
 package com.example.aperez.retrofittest.mvp.model;
 
-import com.activeandroid.Model;
-import com.activeandroid.annotation.Column;
-import com.activeandroid.annotation.Table;
-import com.activeandroid.query.Select;
+import com.example.aperez.retrofittest.mvp.model.db.StoredImage;
 import com.google.gson.annotations.SerializedName;
-
-import java.util.List;
 
 /**
  * Created by aperez on 24/01/17.
  */
 
-@Table(name = "Images")
-public class Image extends Model{
+public class Image {
 
-    @Column(unique = true, onUniqueConflict = Column.ConflictAction.REPLACE)
     @SerializedName("id")
     Long imageId;
-    @Column
     String url;
-    @Column
     @SerializedName("large_url")
     String largeUrl;
     String copyright;
     String site;
 
-    public Image(){
-        super();
+    public Image(StoredImage image) {
+        imageId = image.getImageId();
+        url = image.getUrl();
+        largeUrl = image.getLargeUrl();
     }
 
     public Long getImageId() {
@@ -42,17 +35,11 @@ public class Image extends Model{
         return largeUrl;
     }
 
-    public String getCopyright(){
+    public String getCopyright() {
         return copyright;
     }
 
-    public String getSite(){
+    public String getSite() {
         return site;
-    }
-
-    public static List<Image> getAll(){
-        return new Select()
-                .from(Image.class)
-                .execute();
     }
 }
