@@ -12,8 +12,6 @@ import com.example.aperez.retrofittest.mvp.model.ImageDialogModel;
 import com.example.aperez.retrofittest.mvp.presenter.ImageDialogPresenter;
 import com.example.aperez.retrofittest.utils.BusProvider;
 
-import butterknife.ButterKnife;
-
 /**
  * Created by aperez on 25/01/17.
  */

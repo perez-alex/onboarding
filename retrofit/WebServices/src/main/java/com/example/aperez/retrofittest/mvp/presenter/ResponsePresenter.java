@@ -6,6 +6,7 @@ import com.example.aperez.retrofittest.mvp.model.event.LatestSuccessEvent;
 import com.example.aperez.retrofittest.mvp.view.ImageFragment;
 import com.example.aperez.retrofittest.mvp.view.ResponseView;
 import com.example.aperez.retrofittest.mvp.view.event.ImageClickedEvent;
+import com.example.aperez.retrofittest.mvp.view.event.RefreshEvent;
 import com.squareup.otto.Subscribe;
 
 /**
@@ -29,11 +30,12 @@ public class ResponsePresenter {
     }
 
     public void getLatestImages() {
-        model.getLatestImages();
+        view.setCards(model.getSavedImages());
     }
 
     @Subscribe
     public void latestImagesEventSuccess(LatestSuccessEvent event) {
+        model.saveImages(event.getLatestResponse().getImages());
         view.setCards(event.getLatestResponse().getImages());
     }
 
@@ -48,4 +50,8 @@ public class ResponsePresenter {
         imageFragment.show(view.getFragmentManager(), "image_fragment");
     }
 
+    @Subscribe
+    public void refreshClickedEvent(RefreshEvent event) {
+        model.getLatestImages();
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.aperez.retrofittest.mvp.model;
 
+import com.example.aperez.retrofittest.mvp.model.db.StoredImage;
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -8,17 +9,22 @@ import com.google.gson.annotations.SerializedName;
 
 public class Image {
 
-    Long id;
+    @SerializedName("id")
+    Long imageId;
     String url;
     @SerializedName("large_url")
     String largeUrl;
-    @SerializedName("source_id")
-    String sourceId;
     String copyright;
     String site;
 
-    public Long getId() {
-        return id;
+    public Image(StoredImage image) {
+        imageId = image.getImageId();
+        url = image.getUrl();
+        largeUrl = image.getLargeUrl();
+    }
+
+    public Long getImageId() {
+        return imageId;
     }
 
     public String getUrl() {
@@ -29,11 +35,11 @@ public class Image {
         return largeUrl;
     }
 
-    public String getCopyright(){
+    public String getCopyright() {
         return copyright;
     }
 
-    public String getSite(){
+    public String getSite() {
         return site;
     }
 }
