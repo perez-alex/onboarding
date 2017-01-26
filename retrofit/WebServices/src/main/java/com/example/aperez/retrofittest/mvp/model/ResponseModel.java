@@ -1,13 +1,15 @@
 package com.example.aperez.retrofittest.mvp.model;
 
-import android.widget.Toast;
-
+import com.activeandroid.ActiveAndroid;
 import com.example.aperez.retrofittest.BuildConfig;
-import com.example.aperez.retrofittest.R;
 import com.example.aperez.retrofittest.mvp.model.event.LatestFailureEvent;
 import com.example.aperez.retrofittest.mvp.model.event.LatestSuccessEvent;
 import com.example.aperez.retrofittest.mvp.view.Splashbase;
+import com.google.gson.GsonBuilder;
 import com.squareup.otto.Bus;
+
+import java.lang.reflect.Modifier;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -30,7 +32,11 @@ public class ResponseModel {
     public void getLatestImages(){
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BuildConfig.SPLASHBASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(
+                        new GsonBuilder()
+                        .excludeFieldsWithModifiers(Modifier.FINAL, Modifier.TRANSIENT, Modifier.STATIC)
+                        .create()
+                ))
                 .build();
 
         Splashbase service = retrofit.create(Splashbase.class);
@@ -46,5 +52,21 @@ public class ResponseModel {
                 bus.post(new LatestFailureEvent());
             }
         });
+    }
+
+    public List<Image> getSavedImages() {
+        return Image.getAll();
+    }
+
+    public void saveImages(List<Image> images) {
+        ActiveAndroid.beginTransaction();
+        try {
+            for (Image image : images) {
+                image.save();
+            }
+            ActiveAndroid.setTransactionSuccessful();
+        } finally {
+            ActiveAndroid.endTransaction();
+        }
     }
 }

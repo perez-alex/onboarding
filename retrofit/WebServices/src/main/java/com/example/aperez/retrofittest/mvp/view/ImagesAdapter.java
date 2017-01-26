@@ -1,8 +1,6 @@
 package com.example.aperez.retrofittest.mvp.view;
 
 import android.content.Context;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,7 +47,7 @@ public class ImagesAdapter extends RecyclerView.Adapter<ImagesAdapter.ImageViewH
     public void onBindViewHolder(ImagesAdapter.ImageViewHolder holder, int position) {
         Image image = imagesList.get(position);
         holder.image = image;
-        holder.id.setText(String.valueOf(image.getId()));
+        holder.id.setText(String.valueOf(image.getImageId()));
         Picasso.with(context)
                 .load(image.getUrl())
                 .into(holder.thumbnail);
@@ -75,7 +73,7 @@ public class ImagesAdapter extends RecyclerView.Adapter<ImagesAdapter.ImageViewH
         @OnClick(R.id.thumbnail)
         public void openDetail() {
             Bus bus = BusProvider.getInstance();
-            bus.post(new ImageClickedEvent(String.valueOf(image.getId())));
+            bus.post(new ImageClickedEvent(String.valueOf(image.getImageId())));
         }
     }
 }

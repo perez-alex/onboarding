@@ -6,11 +6,14 @@ import android.widget.Toast;
 
 import com.example.aperez.retrofittest.R;
 import com.example.aperez.retrofittest.mvp.model.Image;
+import com.example.aperez.retrofittest.mvp.view.event.RefreshEvent;
+import com.example.aperez.retrofittest.utils.BusProvider;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by aperez on 24/01/17.
@@ -34,5 +37,10 @@ public class ResponseView extends ActivityView {
 
     public void showErrorToast() {
         Toast.makeText(getActivity(), R.string.response_error, Toast.LENGTH_LONG).show();
+    }
+
+    @OnClick(R.id.refresh_button)
+    public void refreshButtonClicked(){
+        BusProvider.getInstance().post(new RefreshEvent());
     }
 }
