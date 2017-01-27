@@ -42,29 +42,6 @@ public class ResponseView extends ActivityView {
         recyclerView.setAdapter(adapter);
     }
 
-    public void initializeLoader() {
-        getActivity().getSupportLoaderManager().initLoader(0, null, new LoaderManager.LoaderCallbacks<Cursor>() {
-            @Override
-            public Loader<Cursor> onCreateLoader(int id, Bundle cursor) {
-                return new CursorLoader(getActivity(),
-                        MyContentProvider.createUri(StoredImage.class, null),
-                        null, null, null, null
-                );
-            }
-
-            @Override
-            public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-                ImagesAdapter adapter = new ImagesAdapter(getActivity(), data);
-                recyclerView.setAdapter(adapter);
-            }
-
-            @Override
-            public void onLoaderReset(Loader<Cursor> loader) {
-
-            }
-        });
-    }
-
     public void showErrorToast() {
         Toast.makeText(getActivity(), R.string.response_error, Toast.LENGTH_LONG).show();
     }
@@ -72,5 +49,10 @@ public class ResponseView extends ActivityView {
     @OnClick(R.id.refresh_button)
     public void refreshButtonClicked() {
         BusProvider.getInstance().post(new RefreshEvent());
+    }
+
+    public void loadResults(Cursor data) {
+        ImagesAdapter adapter = new ImagesAdapter(getActivity(), data);
+        recyclerView.setAdapter(adapter);
     }
 }

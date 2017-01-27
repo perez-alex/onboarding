@@ -29,11 +29,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         BusProvider.register(presenter);
+        getSupportLoaderManager().initLoader(R.id.images_loader,null, presenter);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         BusProvider.unregister(presenter);
+        getSupportLoaderManager().destroyLoader(R.id.images_loader);
     }
 }
