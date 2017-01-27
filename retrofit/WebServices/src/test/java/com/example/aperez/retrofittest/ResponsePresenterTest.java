@@ -55,10 +55,9 @@ public class ResponsePresenterTest {
 
     @Test
     public void isLatestImagesSuccessCorrect() throws Exception {
-        LatestSuccessEvent event = mock(LatestSuccessEvent.class);
         LatestResponse response = mock(LatestResponse.class);
+        LatestSuccessEvent event = new LatestSuccessEvent(response);
         List<Image> list = mock(List.class);
-        when(event.getLatestResponse()).thenReturn(response);
         when(response.getImages()).thenReturn(list);
 
         presenter.latestImagesEventSuccess(event);
@@ -69,20 +68,16 @@ public class ResponsePresenterTest {
 
     @Test
     public void isLastestImagesFailureCorrect() throws Exception {
-        LatestFailureEvent event = mock(LatestFailureEvent.class);
+        LatestFailureEvent event = new LatestFailureEvent();
         presenter.latesImagesEventFailure(event);
         verify(view).showErrorToast();
     }
 
     @Test
     public void isImageClickedCorrect() throws Exception {
-        ImageClickedEvent event = mock(ImageClickedEvent.class);
-        ImageFragment imageFragment = mock(ImageFragment.class);
-        when(event.getId()).thenReturn("1");
-        when(ImageFragment.newInstance("1")).thenReturn(imageFragment);
+        ImageClickedEvent event = new ImageClickedEvent("1");;
         presenter.imageClickedEvent(event);
-        verify(event).getId();
-        verify(view).getFragmentManager();
+        verify(view).showImageDialog("1");
     }
 
     @Test

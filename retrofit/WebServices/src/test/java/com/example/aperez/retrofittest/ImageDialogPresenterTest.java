@@ -45,14 +45,12 @@ public class ImageDialogPresenterTest {
 
     @Test
     public void isImageDetailSuccessCorrect() throws Exception {
-        ImageDetailsSuccessEvent event = mock(ImageDetailsSuccessEvent.class);
         Image image = mock(Image.class);
-        when(event.getImage()).thenReturn(image);
+        ImageDetailsSuccessEvent event = new ImageDetailsSuccessEvent(image);
         when(image.getLargeUrl()).thenReturn("aaa");
         when(image.getCopyright()).thenReturn("vvv");
         when(image.getSite()).thenReturn("fff");
         presenter.imageDetailsSuccessEvent(event);
-        verify(event).getImage();
         verify(view).setImageDetails("aaa","fff","vvv");
     }
 }

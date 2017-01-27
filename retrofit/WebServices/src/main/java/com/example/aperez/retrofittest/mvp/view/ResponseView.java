@@ -55,4 +55,9 @@ public class ResponseView extends ActivityView {
         ImagesAdapter adapter = new ImagesAdapter(getActivity(), data);
         recyclerView.setAdapter(adapter);
     }
+
+    public void showImageDialog(String id) {
+        ImageFragment imageFragment = ImageFragment.newInstance(id);
+        imageFragment.show(getFragmentManager(), "image_fragment");
+    }
 }

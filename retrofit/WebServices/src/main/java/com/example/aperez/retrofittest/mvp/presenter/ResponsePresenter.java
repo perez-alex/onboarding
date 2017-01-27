@@ -48,8 +48,7 @@ public class ResponsePresenter implements LoaderManager.LoaderCallbacks<Cursor> 
 
     @Subscribe
     public void imageClickedEvent(ImageClickedEvent event) {
-        ImageFragment imageFragment = ImageFragment.newInstance(event.getId());
-        imageFragment.show(view.getFragmentManager(), "image_fragment");
+        view.showImageDialog(event.getId());
     }
 
     @Subscribe
