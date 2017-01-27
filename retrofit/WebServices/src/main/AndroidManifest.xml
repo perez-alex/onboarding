@@ -18,6 +18,11 @@
             </intent-filter>
         </activity>
 
+        <provider
+            android:name=".mvp.model.MyContentProvider"
+            android:authorities="com.example.aperez.retrofittest"
+            android:exported="false" />
+
         <meta-data
             android:name="AA_DB_NAME"
             android:value="Onboarding.db" />

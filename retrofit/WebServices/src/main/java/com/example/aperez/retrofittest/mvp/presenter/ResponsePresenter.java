@@ -26,10 +26,11 @@ public class ResponsePresenter {
     }
 
     private void init() {
-        getLatestImages();
+//        getStoredImages();
+        view.initializeLoader();
     }
 
-    public void getLatestImages() {
+    public void getStoredImages() {
         view.setCards(model.getSavedImages());
     }
 
