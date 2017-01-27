@@ -29,12 +29,6 @@ public class ResponsePresenter implements LoaderManager.LoaderCallbacks<Cursor> 
     public ResponsePresenter(ResponseModel model, ResponseView view) {
         this.model = model;
         this.view = view;
-
-        init();
-    }
-
-    private void init() {
-//        getStoredImages();
     }
 
     public void getStoredImages() {
