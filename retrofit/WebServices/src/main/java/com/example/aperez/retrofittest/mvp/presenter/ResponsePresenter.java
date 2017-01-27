@@ -1,6 +1,14 @@
 package com.example.aperez.retrofittest.mvp.presenter;
 
+import android.database.Cursor;
+import android.os.Bundle;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
+
+import com.example.aperez.retrofittest.mvp.model.MyContentProvider;
 import com.example.aperez.retrofittest.mvp.model.ResponseModel;
+import com.example.aperez.retrofittest.mvp.model.db.StoredImage;
 import com.example.aperez.retrofittest.mvp.model.event.LatestFailureEvent;
 import com.example.aperez.retrofittest.mvp.model.event.LatestSuccessEvent;
 import com.example.aperez.retrofittest.mvp.view.ImageFragment;
@@ -13,7 +21,7 @@ import com.squareup.otto.Subscribe;
  * Created by aperez on 24/01/17.
  */
 
-public class ResponsePresenter {
+public class ResponsePresenter implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private ResponseView view;
     private ResponseModel model;
@@ -26,10 +34,10 @@ public class ResponsePresenter {
     }
 
     private void init() {
-        getLatestImages();
+//        getStoredImages();
     }
 
-    public void getLatestImages() {
+    public void getStoredImages() {
         view.setCards(model.getSavedImages());
     }
 
@@ -53,5 +61,23 @@ public class ResponsePresenter {
     @Subscribe
     public void refreshClickedEvent(RefreshEvent event) {
         model.getLatestImages();
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle cursor) {
+        return new CursorLoader(view.getActivity(),
+                MyContentProvider.createUri(StoredImage.class, null),
+                null, null, null, null
+        );
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        view.loadResults(data);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+
     }
 }

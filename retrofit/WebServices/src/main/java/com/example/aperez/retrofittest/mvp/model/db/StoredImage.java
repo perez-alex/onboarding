@@ -1,5 +1,7 @@
 package com.example.aperez.retrofittest.mvp.model.db;
 
+import android.provider.BaseColumns;
+
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
@@ -9,7 +11,7 @@ import com.example.aperez.retrofittest.mvp.model.Image;
  * Created by aperez on 26/01/17.
  */
 
-@Table(name = "Images")
+@Table(name = "Images", id = BaseColumns._ID)
 public class StoredImage extends Model {
 
     @Column(unique = true, onUniqueConflict = Column.ConflictAction.REPLACE)

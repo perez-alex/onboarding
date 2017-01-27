@@ -1,11 +1,18 @@
 package com.example.aperez.retrofittest.mvp.view;
 
+import android.database.Cursor;
+import android.os.Bundle;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
 import com.example.aperez.retrofittest.R;
 import com.example.aperez.retrofittest.mvp.model.Image;
+import com.example.aperez.retrofittest.mvp.model.MyContentProvider;
+import com.example.aperez.retrofittest.mvp.model.db.StoredImage;
 import com.example.aperez.retrofittest.mvp.view.event.RefreshEvent;
 import com.example.aperez.retrofittest.utils.BusProvider;
 
@@ -40,7 +47,12 @@ public class ResponseView extends ActivityView {
     }
 
     @OnClick(R.id.refresh_button)
-    public void refreshButtonClicked(){
+    public void refreshButtonClicked() {
         BusProvider.getInstance().post(new RefreshEvent());
+    }
+
+    public void loadResults(Cursor data) {
+        ImagesAdapter adapter = new ImagesAdapter(getActivity(), data);
+        recyclerView.setAdapter(adapter);
     }
 }

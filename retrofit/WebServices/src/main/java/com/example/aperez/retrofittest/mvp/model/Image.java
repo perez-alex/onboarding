@@ -1,5 +1,7 @@
 package com.example.aperez.retrofittest.mvp.model;
 
+import android.database.Cursor;
+
 import com.example.aperez.retrofittest.mvp.model.db.StoredImage;
 import com.google.gson.annotations.SerializedName;
 
@@ -16,6 +18,12 @@ public class Image {
     String largeUrl;
     String copyright;
     String site;
+
+    public Image(Cursor cursor){
+        imageId = cursor.getLong(cursor.getColumnIndex("imageId"));
+        url = cursor.getString(cursor.getColumnIndex("url"));
+        largeUrl = cursor.getString(cursor.getColumnIndex("largeUrl"));
+    }
 
     public Image(StoredImage image) {
         imageId = image.getImageId();

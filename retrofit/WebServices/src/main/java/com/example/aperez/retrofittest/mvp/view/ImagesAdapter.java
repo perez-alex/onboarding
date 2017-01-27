@@ -1,6 +1,7 @@
 package com.example.aperez.retrofittest.mvp.view;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import com.example.aperez.retrofittest.utils.BusProvider;
 import com.squareup.otto.Bus;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -27,12 +29,27 @@ import butterknife.OnClick;
 
 public class ImagesAdapter extends RecyclerView.Adapter<ImagesAdapter.ImageViewHolder> {
 
-    private final List<Image> imagesList;
+    private List<Image> imagesList;
     private final Context context;
 
     public ImagesAdapter(Context context, List<Image> images) {
         imagesList = images;
         this.context = context;
+    }
+
+    public ImagesAdapter(Context context, Cursor data) {
+        this.context = context;
+        if (data != null) {
+            try {
+                imagesList = new ArrayList<>();
+                while (data.moveToNext()) {
+                    Image image = new Image(data);
+                    imagesList.add(image);
+                }
+            } finally {
+                data.close();
+            }
+        }
     }
 
     @Override
