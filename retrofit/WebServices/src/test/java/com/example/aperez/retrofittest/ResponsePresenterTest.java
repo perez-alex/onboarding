@@ -82,7 +82,7 @@ public class ResponsePresenterTest {
 
     @Test
     public void isRefreshCorrect() throws Exception {
-        RefreshEvent event = mock(RefreshEvent.class);
+        RefreshEvent event = new RefreshEvent();
         presenter.refreshClickedEvent(event);
         verify(model).getLatestImages();
     }
